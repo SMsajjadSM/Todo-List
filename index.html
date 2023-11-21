@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="bumblebee">
+<html lang="fa" dir="rtl" data-theme="bumblebee">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -24,15 +24,15 @@
     />
     <!-- Favicon -->
     <link rel="icon" href="res/favicon.svg" />
-    <title>Todo List | By Abdellatif Laghjaj</title>
+    <title>Todo List | By SMsajjadSM</title>
   </head>
   <body>
     Copyright
     <div class="author-text">
       <p>
-        Made with ❤️ by
+        ساخته شده با ❤️ توسط
         <a href="https://github.com/SMsajjadSM" target="_blank"
-          ><b>Sajjad Siadati</b></a
+          ><b>سجاد سیادتی</b></a
         >
       </p>
     </div>
@@ -45,8 +45,8 @@
         <div class="input-section">
           <input
             type="text"
-            placeholder="Search . . ."
-            class="input input-bordered input-secondary w-full max-w-xs"
+            placeholder="جستجو . . ."
+            class="inpt input input-bordered input-secondary w-full max-w-xs"
           />
 
           <button class="btn btn-secondary add-task-button">
@@ -57,26 +57,26 @@
 
       <div class="todos-filter">
         <div class="dropdown">
-          <label tabindex="0" class="btn m-1">Filter</label>
+          <label tabindex="0" class="btn m-1">فیلتر</label>
           <ul
             tabindex="0"
             class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
           >
-            <li onclick="filterTodos('all')"><a>All</a></li>
-            <li onclick="filterTodos('pending')"><a>Pending</a></li>
-            <li onclick="filterTodos('completed')"><a>Completed</a></li>
+            <li onclick="filterTodos('all')"><a>همه</a></li>
+            <li onclick="filterTodos('pending')"><a>انجام نشده</a></li>
+            <li onclick="filterTodos('completed')"><a>انجام شده</a></li>
           </ul>
         </div>
-        <button class="btn btn-secondary delete-all-btn">Delete All</button>
+        <button class="btn btn-secondary delete-all-btn">پاک کردن همه</button>
       </div>
 
       <table class="table w-full">
         <thead>
           <tr>
-            <th>Task</th>
-            <th>Due Date</th>
-            <th>Status</th>
-            <th>Actions</th>
+            <th>کارها</th>
+            <th>تاریخ</th>
+            <th>وضعیت</th>
+            <th>رویداد ها</th>
           </tr>
         </thead>
         <tbody class="todos-list-body"></tbody>
@@ -86,7 +86,7 @@
       <div class="onemodal">
         <input
           type="text"
-          placeholder="Add a todo . . ."
+          placeholder=" اضافه کردن فعالیت  . . ."
           class="inp1 input input-bordered input-secondary w-full max-w-xs"
         />
 
@@ -97,10 +97,10 @@
       </div>
       <div class="secmodal">
         <div class="btn-ok">
-          <label tabindex="0" class="btn m-2 ss">OK</label>
+          <label tabindex="0" class="btn m-2 ss">تایید</label>
         </div>
         <div class="btn-cancel">
-          <label tabindex="0" class="btn m-1">Cancel</label>
+          <label tabindex="0" class="btn m-1">خروج</label>
         </div>
       </div>
     </div>
@@ -132,5 +132,6 @@
     <!-- JS -->
     <script src="js/sajjadmain.js"></script>
     <script src="js/theme_switcher.js"></script>
+    <!-- <script src="js/main.js"></script> -->
   </body>
 </html>
