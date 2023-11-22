@@ -35,6 +35,7 @@ document.querySelector(".btn-ok").addEventListener("click", () => {
 });
 function setlocalstorage(todolist) {
   localStorage.setItem("todos", JSON.stringify(todolist));
+  todosGenerator(todosArray);
 }
 
 function todosGenerator(todo) {
@@ -71,3 +72,26 @@ function getLocalStorage() {
   todosGenerator(todosArray);
 }
 window.addEventListener("load", getLocalStorage);
+delete_all_btn.addEventListener("click", () => {
+  localStorage.clear();
+  todosArray = [];
+  todosGenerator(todosArray);
+});
+function deleteTodo(todoid) {
+  let gettodosfordel = JSON.parse(localStorage.getItem("todos"));
+  todosArray = gettodosfordel;
+  let deltodo = gettodosfordel.findIndex(function (todo) {
+    return todo.id == todoid;
+  });
+  todosArray.splice(deltodo, 1);
+  setlocalstorage(todosArray);
+}
+// function toggleStatus(todoid) {
+//   let gettodoforstatus = JSON.parse(localStorage.getItem("todos"));
+//   todosArray = gettodoforstatus;
+//   let statustodo = gettodoforstatus.findIndex(function (todo) {
+//     return todo.id == todoid;
+//   });
+
+//   setlocalstorage(todosArray);
+// }
