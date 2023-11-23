@@ -4,35 +4,40 @@ const add_btn = document.querySelector(".add-task-button");
 const todos_list_body = document.querySelector(".todos-list-body");
 const alert_message = document.querySelector(".alert-message");
 const delete_all_btn = document.querySelector(".delete-all-btn");
+let inpt1 = document.querySelector(".inp1");
+let inpt2 = document.querySelector(".inp2");
 let todosArray = [];
-add_btn.addEventListener("click", () => {
+
+const statusfortodo = ["انجام  نشد", "انجام شده"];
+add_btn.addEventListener("click", modalOpen);
+document.querySelector(".btn-cancel").addEventListener("click", modalClose);
+
+function modalOpen() {
   document.querySelector(".todos").style.top = "150px";
   document.querySelector(".container").style.filter = "blur(10px)";
   document.querySelector(".todos").style.filter = "blur(0px)";
-});
-document.querySelector(".btn-cancel").addEventListener("click", () => {
+}
+function modalClose() {
   document.querySelector(".todos").style.top = "-250px";
   document.querySelector(".container").style.filter = "blur(0px)";
   document.querySelector(".todos").style.filter = "blur(5px)";
-});
+}
 
-document.querySelector(".btn-ok").addEventListener("click", () => {
-  let inpt1 = document.querySelector(".inp1");
-  let inpt2 = document.querySelector(".inp2");
+document.querySelector(".btn-ok").addEventListener("click", addtodowithokBtn);
+function addtodowithokBtn() {
   inpt1v = inpt1.value;
   inpt2v = inpt2.value;
   let newTodo = {
     id: todosArray.length + 1,
     title: inpt1v,
     data: inpt2v || "تاریخی ثبت نشده  ",
-    status: "انجام نشده",
+    status: statusfortodo[0],
   };
   inpt1.value = "";
   inpt2.value = "";
   todosArray.push(newTodo);
   setlocalstorage(todosArray);
-  todosGenerator(todosArray);
-});
+}
 function setlocalstorage(todolist) {
   localStorage.setItem("todos", JSON.stringify(todolist));
   todosGenerator(todosArray);
@@ -86,12 +91,31 @@ function deleteTodo(todoid) {
   todosArray.splice(deltodo, 1);
   setlocalstorage(todosArray);
 }
-// function toggleStatus(todoid) {
-//   let gettodoforstatus = JSON.parse(localStorage.getItem("todos"));
-//   todosArray = gettodoforstatus;
-//   let statustodo = gettodoforstatus.findIndex(function (todo) {
-//     return todo.id == todoid;
-//   });
+function toggleStatus(todoid) {
+  let gettodoforstatus = JSON.parse(localStorage.getItem("todos"));
+  todosArray = gettodoforstatus;
+  let statustodo = gettodoforstatus.findIndex(function (todo) {
+    return todo.id == todoid;
+  });
 
-//   setlocalstorage(todosArray);
-// }
+  if (todosArray[statustodo].status == statusfortodo[0]) {
+    todosArray[statustodo].status = statusfortodo[1];
+  } else {
+    todosArray[statustodo].status = statusfortodo[0];
+  }
+  console.log(todosArray[statustodo].status);
+  setlocalstorage(todosArray);
+}
+function editTodo(todoid) {
+  modalOpen();
+  let gettodoforedit = JSON.parse(localStorage.getItem("todos"));
+  todosArray = gettodoforedit;
+  let statustodo = gettodoforedit.findIndex(function (todo) {
+    return todo.id == todoid;
+  });
+  inpt1.value = todosArray[statustodo].title;
+  inpt2.value = todosArray[statustodo].data;
+  document
+    .querySelector(".btn-ok")
+    .addEventListener("click", edittodoEithokBtn(statustodo));
+}
