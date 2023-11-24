@@ -34,7 +34,15 @@ body {
 .author-text p {
   margin-right: 60px;
 }
-
+.errorModal {
+  color: rgb(233, 47, 84);
+  visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  margin: 5px;
+}
 .container {
   display: flex;
   align-items: center;

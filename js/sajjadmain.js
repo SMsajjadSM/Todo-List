@@ -4,6 +4,7 @@ const add_btn = document.querySelector(".add-task-button");
 const todos_list_body = document.querySelector(".todos-list-body");
 const alert_message = document.querySelector(".alert-message");
 const delete_all_btn = document.querySelector(".delete-all-btn");
+const errorModal = document.querySelector(".errorModal");
 let inpt1 = document.querySelector(".inp1");
 let inpt2 = document.querySelector(".inp2");
 let todosArray = [];
@@ -24,19 +25,29 @@ function modalClose() {
 }
 
 document.querySelector(".btn-ok").addEventListener("click", addtodowithokBtn);
+
 function addtodowithokBtn() {
-  inpt1v = inpt1.value;
-  inpt2v = inpt2.value;
-  let newTodo = {
-    id: todosArray.length + 1,
-    title: inpt1v,
-    data: inpt2v || "تاریخی ثبت نشده  ",
-    status: statusfortodo[0],
-  };
-  inpt1.value = "";
-  inpt2.value = "";
-  todosArray.push(newTodo);
-  setlocalstorage(todosArray);
+  if (inpt1.value) {
+    inpt1v = inpt1.value;
+    inpt2v = inpt2.value;
+    let newTodo = {
+      id: todosArray.length + 1,
+      title: inpt1v,
+      data: inpt2v || "تاریخی ثبت نشده  ",
+      status: statusfortodo[0],
+    };
+    inpt1.value = "";
+    inpt2.value = "";
+    todosArray.push(newTodo);
+    setlocalstorage(todosArray);
+  } else {
+    const setT = setTimeout(() => {
+      errorModal.style.visibility = "visible";
+    }, 50);
+    setTimeout(() => {
+      errorModal.style.visibility = "hidden";
+    }, 4000);
+  }
 }
 function setlocalstorage(todolist) {
   localStorage.setItem("todos", JSON.stringify(todolist));
