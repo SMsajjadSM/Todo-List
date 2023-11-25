@@ -9,7 +9,6 @@ let inpt1 = document.querySelector(".inp1");
 let inpt2 = document.querySelector(".inp2");
 let todosArray = [];
 
-const statusfortodo = ["انجام  نشد", "انجام شده"];
 add_btn.addEventListener("click", modalOpen);
 document.querySelector(".btn-cancel").addEventListener("click", modalClose);
 
@@ -34,7 +33,7 @@ function addtodowithokBtn() {
       id: todosArray.length + 1,
       title: inpt1v,
       data: inpt2v || "تاریخی ثبت نشده  ",
-      status: statusfortodo[0],
+      status: false,
     };
     inpt1.value = "";
     inpt2.value = "";
@@ -61,15 +60,21 @@ function todosGenerator(todo) {
             <tr class="todo-item" data-id="${todo.id}">
                 <td>${todo.title}</td>
                 <td>${todo.data}</td>
-                <td>${todo.status}</td>
+               <td>${todo.status ? "انجام شده" : "انجام نشده"}</td>
                 <td>
-                    <button class="btn btn-warning btn-sm" onclick="editTodo('${todo.id}')">
+                    <button class="btn btn-warning btn-sm" onclick="editTodo('${
+                      todo.id
+                    }')">
                         <i class="bx bx-edit-alt bx-bx-xs"></i>    
                     </button>
-                    <button class="btn btn-success btn-sm" onclick="toggleStatus('${todo.id}')">
+                    <button class="btn btn-success btn-sm" onclick="toggleStatus('${
+                      todo.id
+                    }')">
                         <i class="bx bx-check bx-xs"></i>
                     </button>
-                    <button class="btn btn-error btn-sm" onclick="deleteTodo('${todo.id}')">
+                    <button class="btn btn-error btn-sm" onclick="deleteTodo('${
+                      todo.id
+                    }')">
                         <i class="bx bx-trash bx-xs"></i>
                     </button>
                 </td>
@@ -109,10 +114,10 @@ function toggleStatus(todoid) {
     return todo.id == todoid;
   });
 
-  if (todosArray[statustodo].status == statusfortodo[0]) {
-    todosArray[statustodo].status = statusfortodo[1];
+  if (todosArray[statustodo].status === false) {
+    todosArray[statustodo].status = true;
   } else {
-    todosArray[statustodo].status = statusfortodo[0];
+    todosArray[statustodo].status = false;
   }
   setlocalstorage(todosArray);
 }
@@ -136,13 +141,13 @@ function filterTodos(status) {
       filteredTodos = todosArray;
       break;
     case "انجام نشده":
-      filteredTodos = todosArray.filter((todo) => todo.status === "انجام نشده");
+      filteredTodos = todosArray.filter((todo) => !todo.status);
       break;
     case "انجام شده":
-      filteredTodos = todosArray.filter((todo) => todo.status === "انجام شده");
+      filteredTodos = todosArray.filter((todo) => todo.status);
       break;
   }
+
   console.log(filteredTodos);
-  todosArray = filterTodos;
-  todosGenerator(todosArray);
+  todosGenerator(filteredTodos);
 }
