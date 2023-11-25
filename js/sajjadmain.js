@@ -18,7 +18,9 @@ function modalOpen() {
   document.querySelector(".todos").style.filter = "blur(0px)";
 }
 function modalClose() {
-  document.querySelector(".todos").style.top = "-250px";
+  inpt1.value = "";
+  inpt2.value = "";
+  document.querySelector(".todos").style.top = "-550px";
   document.querySelector(".container").style.filter = "blur(0px)";
   document.querySelector(".todos").style.filter = "blur(5px)";
 }
@@ -123,16 +125,24 @@ function toggleStatus(todoid) {
 }
 function editTodo(todoid) {
   modalOpen();
+
+  let val1, val2;
   let gettodoforedit = JSON.parse(localStorage.getItem("todos"));
   todosArray = gettodoforedit;
-  let statustodo = gettodoforedit.findIndex(function (todo) {
-    return todo.id == todoid;
+  // let statustodo = gettodoforedit.findIndex(function (todo) {
+  //   return todo.id == todoid;
+  // });
+  console.log(todosArray[todoid].id);
+  inpt1.value = todosArray[todoid].title;
+  inpt2.value = todosArray[todoid].data;
+  val1 = inpt1.value;
+  val2 = inpt2.value;
+  console.log(todosArray);
+  console.log(todoid);
+  let found = todosArray.find((todoarr) => {
+    todoarr.id === todoid;
   });
-  inpt1.value = todosArray[statustodo].title;
-  inpt2.value = todosArray[statustodo].data;
-  document
-    .querySelector(".btn-ok")
-    .addEventListener("click", addtodowithokBtn(statustodo));
+  console.log(found);
 }
 function filterTodos(status) {
   let filteredTodos;
