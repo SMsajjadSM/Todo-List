@@ -114,7 +114,6 @@ function toggleStatus(todoid) {
   } else {
     todosArray[statustodo].status = statusfortodo[0];
   }
-  console.log(todosArray[statustodo].status);
   setlocalstorage(todosArray);
 }
 function editTodo(todoid) {
@@ -128,5 +127,22 @@ function editTodo(todoid) {
   inpt2.value = todosArray[statustodo].data;
   document
     .querySelector(".btn-ok")
-    .addEventListener("click", edittodoEithokBtn(statustodo));
+    .addEventListener("click", addtodowithokBtn(statustodo));
+}
+function filterTodos(status) {
+  let filteredTodos;
+  switch (status) {
+    case "همه":
+      filteredTodos = todosArray;
+      break;
+    case "انجام نشده":
+      filteredTodos = todosArray.filter((todo) => todo.status === "انجام نشده");
+      break;
+    case "انجام شده":
+      filteredTodos = todosArray.filter((todo) => todo.status === "انجام شده");
+      break;
+  }
+  console.log(filteredTodos);
+  todosArray = filterTodos;
+  todosGenerator(todosArray);
 }
