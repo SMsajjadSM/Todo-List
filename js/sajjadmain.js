@@ -26,13 +26,18 @@ function modalClose() {
 }
 
 document.querySelector(".btn-ok").addEventListener("click", addtodowithokBtn);
-
+function getrandomNum() {
+  return (
+    Math.random().toString(36).substring(2, 15) +
+    Math.random().toString(36).substring(2, 15)
+  );
+}
 function addtodowithokBtn() {
   if (inpt1.value) {
     inpt1v = inpt1.value;
     inpt2v = inpt2.value;
     let newTodo = {
-      id: todosArray.length + 1,
+      id: getrandomNum(),
       title: inpt1v,
       data: inpt2v || "تاریخی ثبت نشده  ",
       status: false,
@@ -106,7 +111,12 @@ function deleteTodo(todoid) {
   let deltodo = gettodosfordel.findIndex(function (todo) {
     return todo.id == todoid;
   });
-  todosArray.splice(deltodo, 1);
+  let newarr = todosArray.splice(deltodo, 1);
+  console.log(newarr);
+  // todosArray = newarr;
+  // todosArray = todosArray.filter((todo) => todo.id !== todoid);
+  console.log(todosArray);
+
   setlocalstorage(todosArray);
 }
 function toggleStatus(todoid) {
@@ -129,19 +139,16 @@ function editTodo(todoid) {
   let val1, val2;
   let gettodoforedit = JSON.parse(localStorage.getItem("todos"));
   todosArray = gettodoforedit;
-  // let statustodo = gettodoforedit.findIndex(function (todo) {
-  //   return todo.id == todoid;
-  // });
-  console.log(todosArray[todoid].id);
-  inpt1.value = todosArray[todoid].title;
-  inpt2.value = todosArray[todoid].data;
+  let statustodo = gettodoforedit.findIndex(function (todo) {
+    return todo.id == todoid;
+  });
+  inpt1.value = todosArray[statustodo].title;
+  inpt2.value = todosArray[statustodo].data;
   val1 = inpt1.value;
   val2 = inpt2.value;
-  console.log(todosArray);
-  console.log(todoid);
-  let found = todosArray.find((todoarr) => {
-    todoarr.id === todoid;
-  });
+
+  let found = todosArray.find((todoarr) => todoarr.id === todoid);
+
   console.log(found);
 }
 function filterTodos(status) {
@@ -158,6 +165,5 @@ function filterTodos(status) {
       break;
   }
 
-  console.log(filteredTodos);
   todosGenerator(filteredTodos);
 }
