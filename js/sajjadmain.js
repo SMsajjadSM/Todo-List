@@ -8,7 +8,17 @@ const errorModal = document.querySelector(".errorModal");
 let inpt1 = document.querySelector(".inp1");
 let inpt2 = document.querySelector(".inp2");
 let todosArray = [];
+task_input.addEventListener("keyup", (e) => {
+  let keyValue;
+  let todosSearch = [];
+  keyValue = e.target.value.toLowerCase();
+  todosSearch = todosArray.filter((todos) => {
+    return todos.title.toLowerCase().includes(keyValue);
+  });
 
+  console.log(todosSearch);
+  todosGenerator(todosSearch);
+});
 add_btn.addEventListener("click", modalOpen);
 document.querySelector(".btn-cancel").addEventListener("click", modalClose);
 
