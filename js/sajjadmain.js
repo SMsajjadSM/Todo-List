@@ -5,9 +5,14 @@ const todos_list_body = document.querySelector(".todos-list-body");
 const alert_message = document.querySelector(".alert-message");
 const delete_all_btn = document.querySelector(".delete-all-btn");
 const errorModal = document.querySelector(".errorModal");
-let inpt1 = document.querySelector(".inp1");
 let inpt2 = document.querySelector(".inp2");
+
 let todosArray = [];
+let addTodoInput = document.querySelector(".inp1");
+let updateTodoInput = document.querySelector(".inpUpdate");
+let updateTodoButton = document.querySelector(".btn-edit");
+let addTodoButton = document.querySelector(".btn-ok");
+
 task_input.addEventListener("keyup", (e) => {
   let keyValue;
   let todosSearch = [];
@@ -16,10 +21,19 @@ task_input.addEventListener("keyup", (e) => {
     return todos.title.toLowerCase().includes(keyValue);
   });
 
-  console.log(todosSearch);
   todosGenerator(todosSearch);
 });
-add_btn.addEventListener("click", modalOpen);
+
+// Plus-Button
+add_btn.addEventListener("click", () => {
+  addTodoButton.style.display = "block";
+  updateTodoButton.style.display = "none";
+
+  addTodoInput.style.display = "block";
+  updateTodoInput.style.display = "none";
+
+  modalOpen();
+});
 document.querySelector(".btn-cancel").addEventListener("click", modalClose);
 
 function modalOpen() {
@@ -28,14 +42,15 @@ function modalOpen() {
   document.querySelector(".todos").style.filter = "blur(0px)";
 }
 function modalClose() {
-  inpt1.value = "";
+  addTodoInput.value = "";
   inpt2.value = "";
   document.querySelector(".todos").style.top = "-550px";
   document.querySelector(".container").style.filter = "blur(0px)";
   document.querySelector(".todos").style.filter = "blur(5px)";
 }
 
-document.querySelector(".btn-ok").addEventListener("click", addtodowithokBtn);
+addTodoButton.addEventListener("click", addtodowithokBtn);
+
 function getrandomNum() {
   return (
     Math.random().toString(36).substring(2, 15) +
@@ -43,8 +58,8 @@ function getrandomNum() {
   );
 }
 function addtodowithokBtn() {
-  if (inpt1.value) {
-    inpt1v = inpt1.value;
+  if (addTodoInput.value) {
+    inpt1v = addTodoInput.value;
     inpt2v = inpt2.value;
     let newTodo = {
       id: getrandomNum(),
@@ -52,7 +67,7 @@ function addtodowithokBtn() {
       data: inpt2v || "تاریخی ثبت نشده  ",
       status: false,
     };
-    inpt1.value = "";
+    addTodoInput.value = "";
     inpt2.value = "";
     todosArray.push(newTodo);
     setlocalstorage(todosArray);
@@ -129,6 +144,32 @@ function deleteTodo(todoid) {
 
   setlocalstorage(todosArray);
 }
+let gettodosfordel = todosArray;
+
+// Update Todo
+function editTodo(todoid) {
+  modalOpen();
+
+  addTodoInput.style.display = "none";
+  updateTodoInput.style.display = "block";
+  addTodoButton.style.display = "none";
+  updateTodoButton.style.display = "block";
+
+  gettodosfordel = JSON.parse(localStorage.getItem("todos"));
+  todosArray = gettodosfordel;
+
+  let selectedTodo = gettodosfordel.find((todoarr) => todoarr.id === todoid);
+  updateTodoInput.value = selectedTodo.title;
+
+  updateTodoInput.addEventListener("input", (event) => {
+    selectedTodo.title = event.target.value;
+  });
+}
+updateTodoButton.addEventListener("click", () => {
+  modalClose();
+  setlocalstorage(todosArray);
+});
+
 function toggleStatus(todoid) {
   let gettodoforstatus = JSON.parse(localStorage.getItem("todos"));
   todosArray = gettodoforstatus;
@@ -143,24 +184,7 @@ function toggleStatus(todoid) {
   }
   setlocalstorage(todosArray);
 }
-function editTodo(todoid) {
-  modalOpen();
 
-  let val1, val2;
-  let gettodoforedit = JSON.parse(localStorage.getItem("todos"));
-  todosArray = gettodoforedit;
-  let statustodo = gettodoforedit.findIndex(function (todo) {
-    return todo.id == todoid;
-  });
-  inpt1.value = todosArray[statustodo].title;
-  inpt2.value = todosArray[statustodo].data;
-  val1 = inpt1.value;
-  val2 = inpt2.value;
-
-  let found = todosArray.find((todoarr) => todoarr.id === todoid);
-
-  console.log(found);
-}
 function filterTodos(status) {
   let filteredTodos;
   switch (status) {
