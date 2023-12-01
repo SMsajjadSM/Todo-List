@@ -1,5 +1,5 @@
 const task_input = document.querySelector("input");
-const date_input = document.querySelector(".schedule-date"); // added date input
+const date_input = document.querySelector(".schedule-date");
 const add_btn = document.querySelector(".add-task-button");
 const todos_list_body = document.querySelector(".todos-list-body");
 const alert_message = document.querySelector(".alert-message");
@@ -49,14 +49,13 @@ function modalClose() {
   document.querySelector(".todos").style.filter = "blur(5px)";
 }
 
-addTodoButton.addEventListener("click", addtodowithokBtn);
-
 function getrandomNum() {
   return (
     Math.random().toString(36).substring(2, 15) +
     Math.random().toString(36).substring(2, 15)
   );
 }
+addTodoButton.addEventListener("click", addtodowithokBtn);
 function addtodowithokBtn() {
   if (addTodoInput.value) {
     inpt1v = addTodoInput.value;
@@ -137,10 +136,6 @@ function deleteTodo(todoid) {
     return todo.id == todoid;
   });
   let newarr = todosArray.splice(deltodo, 1);
-  console.log(newarr);
-  // todosArray = newarr;
-  // todosArray = todosArray.filter((todo) => todo.id !== todoid);
-  console.log(todosArray);
 
   setlocalstorage(todosArray);
 }
@@ -162,7 +157,16 @@ function editTodo(todoid) {
   updateTodoInput.value = selectedTodo.title;
 
   updateTodoInput.addEventListener("input", (event) => {
-    selectedTodo.title = event.target.value;
+    if (event.target.value) {
+      selectedTodo.title = event.target.value;
+    } else {
+      const setT = setTimeout(() => {
+        errorModal.style.visibility = "visible";
+      }, 50);
+      setTimeout(() => {
+        errorModal.style.visibility = "hidden";
+      }, 4000);
+    }
   });
 }
 updateTodoButton.addEventListener("click", () => {
