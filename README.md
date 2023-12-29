@@ -5,10 +5,8 @@
 
 [Demo of Todolist](https://smsajjadsm.github.io/Todo-List/)
 
-![](https://33333.cdn.cke-cs.com/kSW7V9NHUXugvhoQeFaf/images/84f7c17cfccb77f9003befbde007cfcc000b1c81c03f9881.png)
-
-![](https://33333.cdn.cke-cs.com/kSW7V9NHUXugvhoQeFaf/images/32b96553b28658fd7326bb70019f662dd07d5bdd54ae19e2.png)
-
+![plot](./IMG/1.png)
+![plot](./IMG/2.png)
 
 
 
