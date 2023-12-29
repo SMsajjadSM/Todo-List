@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 =======
 # TodoList
 ## Complete your day with planning!!
