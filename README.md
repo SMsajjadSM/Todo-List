@@ -3,7 +3,7 @@
 ## Complete your day with planning!!
 
 
-[Demo of Todolist](https://smsajjadsm.github.io/Todo-List/)
+[Deploy of Todolist](https://smsajjadsm.github.io/Todo-List/)
 ===
 ![plot](./IMG/1.png)
 ![plot](./IMG/2.png)
